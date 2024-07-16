@@ -5,6 +5,7 @@ import { FaPhone, FaUser } from "react-icons/fa";
 import { HiHashtag } from "react-icons/hi";
 import { IoMdMail } from "react-icons/io";
 import { Link } from "react-router-dom";
+import logo from "/logo.png";
 
 const Register = () => {
     const handleRegister = async (e) => {
@@ -29,10 +30,13 @@ const Register = () => {
             const res = await axios.post("http://localhost:5000/createUser", userInfo);
             console.log(res.data);
             if (res.data.status === "pending") {
-                return toast.error("Your request is pending!");
+                return toast.success("Your request is pending!");
             }
             if (res.data.status === "approved") {
                 return toast.error("Account Already Exist!");
+            }
+            if (res.data.status === "rejected") {
+                return toast.error("Your Account has been banned!");
             }
             if (res.data.insertedId) {
                 toast.success("Form Submitted successfully!");
@@ -46,8 +50,11 @@ const Register = () => {
         <div className="h-screen md:flex">
             <div className="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 justify-around items-center hidden">
                 <div>
-                    <h1 className="text-white font-bold text-4xl font-sans">QuickCash</h1>
-                    <p className="text-white mt-1">The most popular peer to peer Money Transfer</p>
+                    <h1 className="text-white flex items-center gap-6 font-bold text-4xl font-sans">
+                        <img src={logo} className="size-12" alt="" />
+                        QuickCash
+                    </h1>
+                    <p className="text-white mt-1">The most popular Money Transfer platform</p>
                 </div>
                 <div className="absolute -bottom-32 -left-40 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
                 <div className="absolute -bottom-40 -left-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
