@@ -1,7 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
-import Dashboard from "@/pages/Dashboard";
 import Login from "@/pages/shared/Login";
 import Register from "@/pages/shared/Register";
+import Dashboard from "@/pages/shared/Dashboard";
+import SendMoney from "@/pages/User/SendMoney";
+import CashOutUser from "@/pages/User/CashOutUser";
 
 export const router = createBrowserRouter([
     {
@@ -16,8 +18,14 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Dashboard></Dashboard>,
         children: [
+            // users pages
             {
-                // path
+                path: "/sendMoney",
+                element: <SendMoney />,
+            },
+            {
+                path: "/cashOutUser",
+                element: <CashOutUser />,
             },
         ],
     },

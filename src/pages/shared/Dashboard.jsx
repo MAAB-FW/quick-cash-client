@@ -10,7 +10,6 @@ import React from "react";
 import { Link, NavLink, Outlet, ScrollRestoration } from "react-router-dom";
 import logo from "/logo.png";
 import { MdMenuOpen, MdAdminPanelSettings, MdManageAccounts, MdReport } from "react-icons/md";
-import { HiSpeakerphone } from "react-icons/hi";
 import { FaList, FaPen, FaUser } from "react-icons/fa";
 
 const Dashboard = () => {
@@ -18,7 +17,7 @@ const Dashboard = () => {
     return (
         <div className="max-w-7xl mx-auto font-lato">
             <div className="sticky top-0 inset-x-0 z-20 bg-white border-y px-4 sm:px-6 md:px-8 lg:hidden">
-                <div className="flex items-center py-4">
+                <div className="flex items-center justify-between py-4">
                     <DropdownMenu>
                         <DropdownMenuTrigger className="flex lg:hidden">
                             <MdMenuOpen className="text-4xl"></MdMenuOpen>
@@ -72,6 +71,9 @@ const Dashboard = () => {
                             {/* admin nav */}
                         </DropdownMenuContent>
                     </DropdownMenu>
+                    <p>
+                        Balance: <span className="font-semibold text-green-600">{"40"}</span>৳
+                    </p>
                 </div>
             </div>
 
