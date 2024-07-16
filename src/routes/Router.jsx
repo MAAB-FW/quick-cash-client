@@ -6,8 +6,8 @@ import SendMoney from "@/pages/User/SendMoney";
 import CashOutUser from "@/pages/User/CashOutUser";
 import PrivateRoute from "./PrivateRoute";
 import CashInUser from "@/pages/User/CashInUser";
-import TransactionHistoryUser from "@/pages/User/TransactionHistoryUser";
-import TransactionHistoryAgent from "@/pages/Agent/TransactionHistoryAgent";
+import TransactionsHistoryUser from "@/pages/User/TransactionsHistoryUser";
+import TransactionsHistoryAgent from "@/pages/Agent/TransactionsHistoryAgent";
 import TransactionManagement from "@/pages/Agent/TransactionManagement";
 import SystemMonitoring from "@/pages/Admin/SystemMonitoring";
 import UserManagement from "@/pages/Admin/UserManagement";
@@ -64,19 +64,19 @@ export const router = createBrowserRouter([
                 ),
             },
             {
-                path: "/transactionHistoryUser",
+                path: "/transactionsHistoryUser",
                 element: (
                     <PrivateRoute>
-                        <TransactionHistoryUser />
+                        <TransactionsHistoryUser />
                     </PrivateRoute>
                 ),
             },
             // agents pages
             {
-                path: "/transactionHistoryAgent",
+                path: "/transactionsHistoryAgent",
                 element: (
                     <PrivateRoute>
-                        <TransactionHistoryAgent />
+                        <TransactionsHistoryAgent />
                     </PrivateRoute>
                 ),
             },
