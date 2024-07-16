@@ -31,7 +31,7 @@ export const router = createBrowserRouter([
         ),
         children: [
             {
-                path: "/overview",
+                index:true,
                 element: (
                     <PrivateRoute>
                         <Overview />

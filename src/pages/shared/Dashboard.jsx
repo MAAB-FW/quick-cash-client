@@ -19,11 +19,12 @@ import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import { RiFileUserFill } from "react-icons/ri";
 import { TbSettingsShare } from "react-icons/tb";
+import { useRole } from "@/hooks/useRole";
 
 const Dashboard = () => {
     const { logOut } = useAuth();
     const navigate = useNavigate();
-    const role = "admin";
+    const { role } = useRole();
     return (
         <div className="max-w-7xl mx-auto font-lato">
             <div className="sticky top-0 inset-x-0 z-20 bg-white border-y px-4 sm:px-6 md:px-8 lg:hidden">
@@ -46,7 +47,7 @@ const Dashboard = () => {
                             {/* general users nav */}
                             <DropdownMenuItem className="p-0">
                                 <NavLink
-                                    to="/overview"
+                                    to="/"
                                     className={({ isActive }) =>
                                         isActive
                                             ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded focus:outline-none focus:ring-1 focus:ring-gray-600"
@@ -207,7 +208,7 @@ const Dashboard = () => {
                     <ul className="space-y-1.5">
                         <li>
                             <NavLink
-                                to="/overview"
+                                to="/"
                                 className={({ isActive }) =>
                                     isActive
                                         ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600"
@@ -337,25 +338,23 @@ const Dashboard = () => {
                     </ul>
                 </nav>
 
-                <div className="h-full -my-44 flex items-end">
-                    <button
-                        onClick={() =>
-                            logOut()
-                                .then((res) => {
-                                    if (res) {
-                                        toast.success("Logged out successfully!");
-                                        navigate("/login");
-                                    }
-                                })
-                                .catch((err) => {
-                                    console.log(err);
-                                })
-                        }
-                        className="w-full max-w-52 mx-auto flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-red-500 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
-                    >
-                        <IoMdLogOut className="text-xl" /> Logout
-                    </button>
-                </div>
+                <button
+                    onClick={() =>
+                        logOut()
+                            .then((res) => {
+                                if (res) {
+                                    toast.success("Logged out successfully!");
+                                    navigate("/login");
+                                }
+                            })
+                            .catch((err) => {
+                                console.log(err);
+                            })
+                    }
+                    className="w-full max-w-52 mx-auto flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-red-500 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
+                >
+                    <IoMdLogOut className="text-xl" /> Logout
+                </button>
             </div>
 
             <div className="w-full pt-5 px-4 sm:px-6 md:px-8 lg:ps-72 font-mont">
