@@ -3,7 +3,6 @@ import useAuth from "./useAuth";
 
 const axiosSecure = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
-    withCredentials: true,
 });
 
 const useAxiosSecure = () => {
@@ -31,7 +30,7 @@ const useAxiosSecure = () => {
             console.log("status error in the interceptors", status);
             // for 401 or 403 logout the user and move the user to the login page
             if (status === 401 || status === 403) {
-                await logOut();
+                logOut();
             }
             return Promise.reject(error);
         },

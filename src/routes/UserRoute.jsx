@@ -1,9 +1,22 @@
-import React from 'react'
+import LoadingSpinner from "@/components/LoadingSpinner";
+import { useRole } from "@/hooks/useRole";
+import React from "react";
+import { Navigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
-const UserRoute = () => {
-  return (
-    <div>UserRoute</div>
-  )
-}
+const UserRoute = ({ children }) => {
+    const { role, isPending } = useRole();
 
-export default UserRoute
+    if (isPending) return <LoadingSpinner />;
+
+    if (role === "user") {
+        return children;
+    }
+
+    return <Navigate to="/" replace></Navigate>;
+};
+
+export default UserRoute;
+UserRoute.propTypes = {
+    children: PropTypes.node,
+};

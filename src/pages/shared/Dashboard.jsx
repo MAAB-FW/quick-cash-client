@@ -20,11 +20,15 @@ import { MdOutlineAttachMoney } from "react-icons/md";
 import { RiFileUserFill } from "react-icons/ri";
 import { TbSettingsShare } from "react-icons/tb";
 import { useRole } from "@/hooks/useRole";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const Dashboard = () => {
     const { logOut } = useAuth();
     const navigate = useNavigate();
-    const { role } = useRole();
+    const { role, isPending } = useRole();
+    if (isPending) {
+        return <LoadingSpinner />;
+    }
     return (
         <div className="max-w-7xl mx-auto font-lato">
             <div className="sticky top-0 inset-x-0 z-20 bg-white border-y px-4 sm:px-6 md:px-8 lg:hidden">
