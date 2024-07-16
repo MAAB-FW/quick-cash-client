@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import useAuth from "./useAuth";
 
 const axiosSecure = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
@@ -8,7 +9,7 @@ const axiosSecure = axios.create({
 });
 
 const useAxiosSecure = () => {
-    // const { logoutUser } = useAuth()
+    const { logOut } = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -21,21 +22,16 @@ const useAxiosSecure = () => {
             },
             (error) => {
                 if (error.response.status === 401 || error.response.status === 403) {
-                    // logoutUser()
-                    //     .then(() => {
-                    //         navigate("/joinUs");
-                    //     })
-                    //     .catch((e) => {
-                    //         console.log(e);
-                    //     });
-                    // return console.log("logout user");
+                    logOut()
+                        
+                    return console.log("logout user");
                 }
                 // Any status codes that falls outside the range of 2xx cause this function to trigger
                 // Do something with response error
                 return Promise.reject(error);
             },
         );
-    }, [navigate]);
+    }, [logOut, navigate]);
 
     return axiosSecure;
 };

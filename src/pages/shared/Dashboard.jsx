@@ -7,12 +7,15 @@ import {
     DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import React from "react";
-import { Link, NavLink, Outlet, ScrollRestoration } from "react-router-dom";
+import { Link, NavLink, Outlet, ScrollRestoration, useNavigate } from "react-router-dom";
 import logo from "/logo.png";
 import { MdMenuOpen, MdAdminPanelSettings, MdManageAccounts, MdReport } from "react-icons/md";
 import { FaList, FaPen, FaUser } from "react-icons/fa";
+import useAuth from "@/hooks/useAuth";
 
 const Dashboard = () => {
+    const { logOut } = useAuth();
+    const navigate = useNavigate();
     const role = "admin";
     return (
         <div className="max-w-7xl mx-auto font-lato">
@@ -87,7 +90,10 @@ const Dashboard = () => {
                     </p>
                 </div>
 
-                <nav className="hs-accordion-group p-6 w-full flex flex-col flex-wrap" data-hs-accordion-always-open>
+                <nav
+                    className="hs-accordion-group p-6 w-full flex flex-col justify-between h-full flex-wrap"
+                    data-hs-accordion-always-open
+                >
                     <ul className="space-y-1.5">
                         {role === "admin" ? (
                             <>
@@ -149,6 +155,24 @@ const Dashboard = () => {
                             </>
                         )}
                     </ul>
+                    <div>
+                        <button
+                            onClick={() =>
+                                logOut()
+                                    .then((res) => {
+                                        if (res) {
+                                            navigate("/login");
+                                        }
+                                    })
+                                    .catch((err) => {
+                                        console.log(err);
+                                    })
+                            }
+                            className="text-white"
+                        >
+                            Logout
+                        </button>
+                    </div>
                 </nav>
             </div>
 
