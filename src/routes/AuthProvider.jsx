@@ -15,7 +15,7 @@ const AuthProvider = ({ children }) => {
         //     setUser(null);
         //     setLoading(false);
         //     console.log('logged out');
-            return true;
+        return true;
         // }
     };
 
@@ -34,9 +34,9 @@ const AuthProvider = ({ children }) => {
                 console.log(error);
                 setLoading(false);
             }
+            // setLoading(false);
         };
-        // setLoading(false);
-        return () => stateChange();
+        stateChange();
     }, []);
     console.log(user);
     const authInfo = { user, setUser, loading, setLoading, logOut };

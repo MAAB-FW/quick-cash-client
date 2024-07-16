@@ -1,3 +1,4 @@
+import LoadingSpinner from "@/components/LoadingSpinner";
 import useAuth from "@/hooks/useAuth";
 import PropTypes from "prop-types";
 import { Navigate } from "react-router-dom";
@@ -5,7 +6,7 @@ import { Navigate } from "react-router-dom";
 const PrivateRoute = ({ children }) => {
     const { user, loading } = useAuth();
 
-    if (loading) return <>Loading</>;
+    if (loading) return <LoadingSpinner />;
 
     if (user) {
         return children;

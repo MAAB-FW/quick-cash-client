@@ -7,13 +7,14 @@ import {
     DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import React from "react";
-import { Link, NavLink, Outlet, ScrollRestoration, useNavigate } from "react-router-dom";
+import { NavLink, Outlet, ScrollRestoration, useNavigate } from "react-router-dom";
 import logo from "/logo.png";
 import { MdMenuOpen, MdAdminPanelSettings, MdManageAccounts, MdReport } from "react-icons/md";
 import { FaList, FaPen, FaUser } from "react-icons/fa";
 import useAuth from "@/hooks/useAuth";
 import toast from "react-hot-toast";
 import { IoMdLogOut } from "react-icons/io";
+import { GrContactInfo } from "react-icons/gr";
 
 const Dashboard = () => {
     const { logOut } = useAuth();
@@ -28,22 +29,33 @@ const Dashboard = () => {
                             <MdMenuOpen className="text-4xl"></MdMenuOpen>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="bg-white rounded p-1 m-2 border">
-                            <DropdownMenuLabel className="py-2 flex items-center justify-center">
-                                <Link
+                            {/* <DropdownMenuLabel className="py-2 flex items-center justify-center">
+                                <div
                                     to="/"
                                     className="flex max-w-fit gap-2 justify-center items-center font-semibold focus:outline-none focus:ring-1 focus:ring-gray-600"
                                 >
                                     <img src={logo} className="size-6" alt="" />
                                     QuickCash
-                                </Link>
-                            </DropdownMenuLabel>
+                                </div>
+                            </DropdownMenuLabel> */}
+                            {/* <DropdownMenuSeparator /> */}
                             {/* general users nav */}
-                            <DropdownMenuSeparator />
-                            {role === "admin" ? (
-                                <>
-                                    <DropdownMenuItem className="p-0">
+                            <DropdownMenuItem className="p-0">
+                                <NavLink
+                                    to="/overview"
+                                    className={({ isActive }) =>
+                                        isActive
+                                            ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded focus:outline-none focus:ring-1 focus:ring-gray-600"
+                                            : "w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-400 rounded hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
+                                    }
+                                >
+                                    <GrContactInfo className="text-xl" />
+                                    Overview
+                                </NavLink>
+                                {role === "admin" ? (
+                                    <>
                                         <NavLink
-                                            to="/dashboard/admin"
+                                            to="/systemMonitoring"
                                             className={({ isActive }) =>
                                                 isActive
                                                     ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded focus:outline-none focus:ring-1 focus:ring-gray-600"
@@ -51,13 +63,24 @@ const Dashboard = () => {
                                             }
                                         >
                                             <MdAdminPanelSettings className="text-xl" />
-                                            Admin
+                                            System Monitoring
                                         </NavLink>
-                                    </DropdownMenuItem>
-                                </>
-                            ) : (
-                                <>
-                                    <DropdownMenuItem className="p-0">
+                                        <NavLink
+                                            to="/userManagement"
+                                            className={({ isActive }) =>
+                                                isActive
+                                                    ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded focus:outline-none focus:ring-1 focus:ring-gray-600"
+                                                    : "w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-400 rounded hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
+                                            }
+                                        >
+                                            <MdManageAccounts className="text-xl" />
+                                            User Management
+                                        </NavLink>
+                                        {/* </DropdownMenuItem> */}
+                                    </>
+                                ) : (
+                                    <>
+                                        {/* <DropdownMenuItem className="p-0"> */}
                                         <NavLink
                                             to="/dashboard/user"
                                             className={({ isActive }) =>
@@ -69,13 +92,17 @@ const Dashboard = () => {
                                             <FaUser />
                                             User
                                         </NavLink>
-                                    </DropdownMenuItem>
-                                </>
-                            )}
+                                    </>
+                                )}
+                            </DropdownMenuItem>
 
                             {/* admin nav */}
                         </DropdownMenuContent>
                     </DropdownMenu>
+                    <div className="flex max-w-fit gap-2 justify-center items-center font-semibold focus:outline-none focus:ring-1 focus:ring-gray-600">
+                        <img src={logo} className="size-6" alt="" />
+                        QuickCash
+                    </div>
                     <p>
                         Balance: <span className="font-semibold text-green-600">{"40"}</span>৳
                     </p>
@@ -87,8 +114,9 @@ const Dashboard = () => {
                 className="hs-overlay [--auto-close:lg] hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 start-0 bottom-0 z-[60] w-64 bg-gray-900 border-e border-gray-800 pt-7 pb-10 overflow-y-auto md:block lg:translate-x-0 lg:end-auto lg:bottom-0 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300"
             >
                 <div className="px-6">
-                    <p className="flex-none text-xl font-semibold text-white focus:outline-none focus:ring-1 focus:ring-gray-600">
-                        QuickCAsh
+                    <p className="flex-none text-xl flex items-center gap-3 ml-3 font-semibold text-white focus:outline-none focus:ring-1 focus:ring-gray-600">
+                        <img src={logo} className="size-6" alt="" />
+                        QuickCash
                     </p>
                 </div>
 
@@ -97,11 +125,24 @@ const Dashboard = () => {
                     data-hs-accordion-always-open
                 >
                     <ul className="space-y-1.5">
+                        <li>
+                            <NavLink
+                                to="/overview"
+                                className={({ isActive }) =>
+                                    isActive
+                                        ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600"
+                                        : "w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-400 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
+                                }
+                            >
+                                <GrContactInfo className="text-xl" />
+                                Overview
+                            </NavLink>
+                        </li>
                         {role === "admin" ? (
                             <>
                                 <li>
                                     <NavLink
-                                        to="/dashboard/adminProfile"
+                                        to="/systemMonitoring"
                                         className={({ isActive }) =>
                                             isActive
                                                 ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600"
@@ -109,7 +150,20 @@ const Dashboard = () => {
                                         }
                                     >
                                         <MdAdminPanelSettings className="text-xl" />
-                                        Admin Profile
+                                        System Monitoring
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        to="/userManagement"
+                                        className={({ isActive }) =>
+                                            isActive
+                                                ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600"
+                                                : "w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-400 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
+                                        }
+                                    >
+                                        <MdManageAccounts className="text-xl" />
+                                        User Management
                                     </NavLink>
                                 </li>
                             </>
@@ -171,7 +225,7 @@ const Dashboard = () => {
                                         console.log(err);
                                     })
                             }
-                            className="w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-white rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
+                            className="w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-red-500 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
                         >
                             <IoMdLogOut className="text-xl" /> Logout
                         </button>
