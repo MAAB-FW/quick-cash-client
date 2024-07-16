@@ -21,7 +21,7 @@ const Login = () => {
         }
         const userInfo = { pin, email };
         try {
-            const res = await axios.post(`http://localhost:5000/login/${email}`, userInfo);
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/login/${email}`, userInfo);
             console.log(res.data);
             if (res.data.status === 403) {
                 return toast.error(res.data.message);
@@ -33,8 +33,12 @@ const Login = () => {
                 return toast.error("Your Account has been banned!");
             }
             if (res.data.status === "approved") {
-                navigate("/");
-                return toast.success("Logged in successfully!!");
+                const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/jwt`, userInfo, { withCredentials: true });
+                console.log(data);
+                if (data.success) {
+                    navigate("/");
+                    return toast.success("Logged in successfully!!");
+                }
             }
         } catch (error) {
             console.log(error);
