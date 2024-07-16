@@ -12,6 +12,8 @@ import logo from "/logo.png";
 import { MdMenuOpen, MdAdminPanelSettings, MdManageAccounts, MdReport } from "react-icons/md";
 import { FaList, FaPen, FaUser } from "react-icons/fa";
 import useAuth from "@/hooks/useAuth";
+import toast from "react-hot-toast";
+import { IoMdLogOut } from "react-icons/io";
 
 const Dashboard = () => {
     const { logOut } = useAuth();
@@ -91,7 +93,7 @@ const Dashboard = () => {
                 </div>
 
                 <nav
-                    className="hs-accordion-group p-6 w-full flex flex-col justify-between h-full flex-wrap"
+                    className="hs-accordion-group p-6 w-full flex flex-col justify-between flex-wrap"
                     data-hs-accordion-always-open
                 >
                     <ul className="space-y-1.5">
@@ -161,6 +163,7 @@ const Dashboard = () => {
                                 logOut()
                                     .then((res) => {
                                         if (res) {
+                                            toast.success("Logged out successfully!");
                                             navigate("/login");
                                         }
                                     })
@@ -168,9 +171,9 @@ const Dashboard = () => {
                                         console.log(err);
                                     })
                             }
-                            className="text-white"
+                            className="w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-white rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
                         >
-                            Logout
+                            <IoMdLogOut className="text-xl" /> Logout
                         </button>
                     </div>
                 </nav>

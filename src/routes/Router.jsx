@@ -4,6 +4,7 @@ import Register from "@/pages/shared/Register";
 import Dashboard from "@/pages/shared/Dashboard";
 import SendMoney from "@/pages/User/SendMoney";
 import CashOutUser from "@/pages/User/CashOutUser";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
     {
@@ -16,16 +17,28 @@ export const router = createBrowserRouter([
     },
     {
         path: "/",
-        element: <Dashboard></Dashboard>,
+        element: (
+            <PrivateRoute>
+                <Dashboard></Dashboard>
+            </PrivateRoute>
+        ),
         children: [
             // users pages
             {
                 path: "/sendMoney",
-                element: <SendMoney />,
+                element: (
+                    <PrivateRoute>
+                        <SendMoney />
+                    </PrivateRoute>
+                ),
             },
             {
                 path: "/cashOutUser",
-                element: <CashOutUser />,
+                element: (
+                    <PrivateRoute>
+                        <CashOutUser />
+                    </PrivateRoute>
+                ),
             },
         ],
     },

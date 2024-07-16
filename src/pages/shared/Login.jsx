@@ -5,8 +5,10 @@ import { IoMdMail } from "react-icons/io";
 import { HiHashtag } from "react-icons/hi";
 import toast from "react-hot-toast";
 import axios from "axios";
+import useAuth from "@/hooks/useAuth";
 
 const Login = () => {
+    const { setLoading, setUser } = useAuth();
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
@@ -21,27 +23,35 @@ const Login = () => {
         }
         const userInfo = { pin, email };
         try {
+            setLoading(true);
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/login/${email}`, userInfo);
             console.log(res.data);
             if (res.data.status === 403) {
+                setLoading(false);
                 return toast.error(res.data.message);
             }
             if (res.data.status === "pending") {
+                setLoading(false);
                 return toast.success("Your request has been pending!");
             }
             if (res.data.status === "rejected") {
+                setLoading(false);
                 return toast.error("Your Account has been banned!");
             }
             if (res.data.status === "approved") {
                 const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/jwt`, userInfo, { withCredentials: true });
                 console.log(data);
                 if (data.success) {
+                    setUser(res.data);
                     navigate("/");
+                    setLoading(false);
                     return toast.success("Logged in successfully!!");
                 }
+                setLoading(false);
             }
         } catch (error) {
             console.log(error);
+            setLoading(false);
         }
     };
 

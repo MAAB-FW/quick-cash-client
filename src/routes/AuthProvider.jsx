@@ -1,7 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
-import toast from "react-hot-toast";
 
 export const AuthContext = createContext();
 
@@ -13,17 +12,24 @@ const AuthProvider = ({ children }) => {
         const resp = await axios.post(`${import.meta.env.VITE_API_URL}/logout`, user, { withCredentials: true });
         if (resp.data.success) {
             setUser(null);
-            toast.success("Logged out successfully!");
+            setLoading(false);
+            console.log('logged out');
             return true;
         }
     };
 
     useEffect(() => {
         const stateChange = async () => {
-            const resp = await axios.get(`${import.meta.env.VITE_API_URL}/userInfo`, { withCredentials: true });
-            setLoading(false);
-            setUser(resp.data);
+            try {
+                const resp = await axios.get(`${import.meta.env.VITE_API_URL}/userInfo`, { withCredentials: true });
+                setLoading(false);
+                setUser(resp.data);
+            } catch (error) {
+                console.log(error);
+                setLoading(false);
+            }
         };
+        // setLoading(false);
         return () => stateChange();
     }, []);
     console.log(user);
