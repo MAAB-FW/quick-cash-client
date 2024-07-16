@@ -1,6 +1,4 @@
 import axios from "axios";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import useAuth from "./useAuth";
 
 const axiosSecure = axios.create({
@@ -10,28 +8,34 @@ const axiosSecure = axios.create({
 
 const useAxiosSecure = () => {
     const { logOut } = useAuth();
-    const navigate = useNavigate();
 
-    useEffect(() => {
-        axiosSecure.interceptors.response.use(
-            (res) => {
-                console.log("passed");
-                // Any status code that lie within the range of 2xx cause this  to =>trigger
-                // Do something with response data
-                return res;
-            },
-            (error) => {
-                if (error.response.status === 401 || error.response.status === 403) {
-                    logOut()
-                        
-                    return console.log("logout user");
-                }
-                // Any status codes that falls outside the range of 2xx cause this function to trigger
-                // Do something with response error
-                return Promise.reject(error);
-            },
-        );
-    }, [logOut, navigate]);
+    axiosSecure.interceptors.request.use(
+        function (config) {
+            const token = localStorage.getItem("access-token");
+            // console.log("req stooped by interceptors", token)
+            config.headers.authorization = `Bearer ${token}`;
+            return config;
+        },
+        function (error) {
+            console.log(error);
+            return Promise.reject(error);
+        },
+    );
+
+    axiosSecure.interceptors.response.use(
+        function (response) {
+            return response;
+        },
+        async (error) => {
+            const status = error.response.status;
+            console.log("status error in the interceptors", status);
+            // for 401 or 403 logout the user and move the user to the login page
+            if (status === 401 || status === 403) {
+                await logOut();
+            }
+            return Promise.reject(error);
+        },
+    );
 
     return axiosSecure;
 };

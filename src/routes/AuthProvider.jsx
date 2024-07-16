@@ -9,19 +9,25 @@ const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     const logOut = async () => {
-        const resp = await axios.post(`${import.meta.env.VITE_API_URL}/logout`, user, { withCredentials: true });
-        if (resp.data.success) {
-            setUser(null);
-            setLoading(false);
-            console.log('logged out');
+        localStorage.removeItem("access-token");
+        // const resp = await axios.post(`${import.meta.env.VITE_API_URL}/logout`, user, { withCredentials: true });
+        // if (resp.data.success) {
+        //     setUser(null);
+        //     setLoading(false);
+        //     console.log('logged out');
             return true;
-        }
+        // }
     };
 
     useEffect(() => {
         const stateChange = async () => {
             try {
-                const resp = await axios.get(`${import.meta.env.VITE_API_URL}/userInfo`, { withCredentials: true });
+                const token = localStorage.getItem("access-token");
+                const resp = await axios.get(`${import.meta.env.VITE_API_URL}/userInfo`, {
+                    headers: {
+                        authorization: `Bearer ${token}`,
+                    },
+                });
                 setLoading(false);
                 setUser(resp.data);
             } catch (error) {

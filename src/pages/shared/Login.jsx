@@ -39,11 +39,12 @@ const Login = () => {
                 return toast.error("Your Account has been banned!");
             }
             if (res.data.status === "approved") {
-                const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/jwt`, userInfo, { withCredentials: true });
+                const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/jwt`, userInfo);
                 console.log(data);
-                if (data.success) {
+                if (data.token) {
                     setUser(res.data);
                     navigate("/");
+                    localStorage.setItem("access-token", data.token);
                     setLoading(false);
                     return toast.success("Logged in successfully!!");
                 }
