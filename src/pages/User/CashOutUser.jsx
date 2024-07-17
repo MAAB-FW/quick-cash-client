@@ -24,7 +24,7 @@ const CashOutUser = () => {
     };
 
     return (
-        <div className="p-4">
+        <div className="">
             <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-6">
                 <h2 className="text-2xl font-bold mb-4 text-gray-800">Cash-Out</h2>
                 <div className="mb-4">

@@ -37,7 +37,7 @@ const UserManagement = () => {
     };
 
     return (
-        <div className="min-h-[50vh] p-4 relative">
+        <div className="relative pb-5">
             <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
                 <h2 className="text-2xl font-bold mb-4 text-gray-800">User Management</h2>
                 <div className="mb-4">

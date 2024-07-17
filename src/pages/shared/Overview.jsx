@@ -8,7 +8,7 @@ const Overview = () => {
     const { role } = useRole();
 
     return (
-        <div className=" h-full  flex flex-col items-center p-4">
+        <div className="h-full flex flex-col items-center">
             <div className="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
                 <h2 className="text-2xl font-bold mb-4 text-gray-800">
                     {role && (
