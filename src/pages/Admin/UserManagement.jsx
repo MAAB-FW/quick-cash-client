@@ -22,8 +22,8 @@ const UserManagement = () => {
     });
     const { mutateAsync } = useMutation({
         mutationKey: ["status"],
-        mutationFn: async ({ userId, status, button }) => {
-            const res = await axiosSecure.patch(`/userStatus/${userId}`, { status, button });
+        mutationFn: async ({ userId, role, status, button }) => {
+            const res = await axiosSecure.patch(`/userStatus/${userId}`, { role, status, button });
             console.log(res.data);
             if (res.data.modifiedCount) {
                 refetch();
@@ -31,9 +31,9 @@ const UserManagement = () => {
         },
     });
 
-    const handleToggleStatus = (userId, status, button) => {
+    const handleToggleStatus = (userId, role, status, button) => {
         setIsRefetching(true);
-        mutateAsync({ userId, status, button });
+        mutateAsync({ userId, role, status, button });
     };
 
     return (
@@ -102,14 +102,18 @@ const UserManagement = () => {
                                                 <div className="flex flex-col gap-2">
                                                     <button
                                                         disabled={user.status === "approved"}
-                                                        onClick={() => handleToggleStatus(user._id, user.status, "approved")}
+                                                        onClick={() =>
+                                                            handleToggleStatus(user._id, user.role, user.status, "approved")
+                                                        }
                                                         className={`py-1 px-3 rounded-lg font-semibold text-white bg-green-500 disabled:bg-gray-400 disabled:text-gray-100 disabled:cursor-not-allowed`}
                                                     >
                                                         {user.status === "pending" ? "Approve" : "Activate"}
                                                     </button>
                                                     <button
                                                         disabled={user.status === "rejected"}
-                                                        onClick={() => handleToggleStatus(user._id, user.status, "rejected")}
+                                                        onClick={() =>
+                                                            handleToggleStatus(user._id, user.status, user.role, "rejected")
+                                                        }
                                                         className={`py-1 px-3 rounded-lg font-semibold text-white bg-red-500 disabled:bg-gray-400 disabled:text-gray-100 disabled:cursor-not-allowed`}
                                                     >
                                                         {user.status === "pending" ? "Reject" : "Block"}
