@@ -47,7 +47,7 @@ const Register = () => {
         }
     };
     return (
-        <div className="h-screen md:flex">
+        <div className="h-screen flex flex-col justify-center items-center md:flex-row md:items-stretch">
             <div className="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 justify-around items-center hidden">
                 <div>
                     <h1 className="text-white flex items-center gap-6 font-bold text-4xl font-sans">
@@ -63,6 +63,10 @@ const Register = () => {
             </div>
             <div className="flex md:w-1/2 justify-center py-10 items-center bg-white">
                 <form onSubmit={handleRegister} className="bg-white">
+                    <h1 className="text-black flex items-center gap-3 font-bold text-3xl font-sans mb-4 md:hidden">
+                        <img src={logo} className="size-10" alt="" />
+                        QuickCash
+                    </h1>
                     <h1 className="text-gray-800 font-bold text-2xl mb-1">Register</h1>
                     <p className="text-sm font-normal text-gray-600 mb-7">Your Account</p>
                     <div className="flex items-center border-2 py-2 px-3 rounded-2xl mb-4">

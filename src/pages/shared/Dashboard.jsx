@@ -18,12 +18,12 @@ import { SiMoneygram } from "react-icons/si";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import { MdOutlineAttachMoney } from "react-icons/md";
 import { RiFileUserFill } from "react-icons/ri";
-import { TbSettingsShare } from "react-icons/tb";
+import { TbCurrencyTaka, TbSettingsShare } from "react-icons/tb";
 import { useRole } from "@/hooks/useRole";
 import LoadingSpinner from "@/components/LoadingSpinner";
 
 const Dashboard = () => {
-    const { logOut } = useAuth();
+    const { logOut, user } = useAuth();
     const navigate = useNavigate();
     const { role, isPending } = useRole();
     if (isPending) {
@@ -188,9 +188,14 @@ const Dashboard = () => {
                         <img src={logo} className="size-6" alt="" />
                         QuickCash
                     </div>
-                    <p>
-                        Balance: <span className="font-semibold text-green-600">{"40"}</span>৳
-                    </p>
+                    {user.balance ? (
+                        <p className="flex items-center">
+                            Balance:<span className="font-semibold text-green-600 ml-1">{user.balance.toFixed(2)}</span>
+                            <TbCurrencyTaka />
+                        </p>
+                    ) : (
+                        <p></p>
+                    )}
                 </div>
             </div>
 

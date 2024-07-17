@@ -1,6 +1,7 @@
 import useAuth from "@/hooks/useAuth";
 import { useRole } from "@/hooks/useRole";
 import React from "react";
+import { TbCurrencyTaka } from "react-icons/tb";
 
 const Overview = () => {
     const { user } = useAuth();
@@ -33,7 +34,10 @@ const Overview = () => {
                 {user.balance && (
                     <div className="mb-4">
                         <h3 className="text-lg font-semibold text-gray-700">Account Balance</h3>
-                        <p className="text-gray-600">{user.balance}</p>
+                        <p className="flex items-center">
+                            <span className="font-semibold text-green-600">{user.balance.toFixed(2)}</span>
+                            <TbCurrencyTaka />
+                        </p>
                     </div>
                 )}
             </div>
