@@ -19,7 +19,7 @@ const SystemMonitoring = () => {
             <div className="mx-auto bg-white shadow-lg rounded-lg p-6">
                 <h2 className="text-2xl font-bold mb-4 text-gray-800">System Monitoring - All Transactions</h2>
                 <div className="overflow-x-auto">
-                    <table className="min-w-full bg-white">
+                    <table className="min-w-full bg-white text-nowrap">
                         <thead>
                             <tr>
                                 <th className="py-2">Transaction ID</th>
@@ -37,7 +37,7 @@ const SystemMonitoring = () => {
                                     <td className="border px-4 py-2">{transaction.type}</td>
                                     <td className="border px-4 py-2">{transaction.mobile}</td>
                                     <td
-                                        className={`border px-4 py-2 flex items-center min-h-20 ${
+                                        className={`border px-4 py-2 flex items-center ${
                                             transaction.amount < 0 ? "text-red-500" : "text-green-500"
                                         }`}
                                     >

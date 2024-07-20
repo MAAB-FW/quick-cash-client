@@ -3,16 +3,16 @@ import { TbCurrencyTaka } from "react-icons/tb";
 
 const TransactionsHistoryUser = () => {
     const mockTransactions = [
-        { id: 1, date: "2024-07-01", type: "Cash In", amount: 1000 },
-        { id: 2, date: "2024-07-02", type: "Send Money", amount: -200 },
-        { id: 3, date: "2024-07-03", type: "Cash Out", amount: -300 },
-        { id: 4, date: "2024-07-04", type: "Receive Money", amount: 150 },
-        { id: 5, date: "2024-07-05", type: "Cash In", amount: 500 },
-        { id: 6, date: "2024-07-06", type: "Send Money", amount: -50 },
-        { id: 7, date: "2024-07-07", type: "Cash Out", amount: -100 },
-        { id: 8, date: "2024-07-08", type: "Receive Money", amount: 250 },
-        { id: 9, date: "2024-07-09", type: "Cash In", amount: 700 },
-        { id: 10, date: "2024-07-10", type: "Send Money", amount: -100 },
+        { id: 1, date: "2024-07-01", type: "Cash In", amount: 1000, fee: 0.0 },
+        { id: 2, date: "2024-07-02", type: "Send Money", amount: -200, fee: 5.0 },
+        { id: 3, date: "2024-07-03", type: "Cash Out", amount: -300, fee: 4.5 },
+        { id: 4, date: "2024-07-04", type: "Receive Money", amount: 150, fee: 0.0 },
+        { id: 5, date: "2024-07-05", type: "Cash In", amount: 500, fee: 0.0 },
+        { id: 6, date: "2024-07-06", type: "Send Money", amount: -50, fee: 0.0 },
+        { id: 7, date: "2024-07-07", type: "Cash Out", amount: -100, fee: 1.5 },
+        { id: 8, date: "2024-07-08", type: "Receive Money", amount: 250, fee: 0.0 },
+        { id: 9, date: "2024-07-09", type: "Cash In", amount: 700, fee: 0.0 },
+        { id: 10, date: "2024-07-10", type: "Send Money", amount: -100, fee: 5.0 },
     ];
     return (
         <div className="">
@@ -25,7 +25,8 @@ const TransactionsHistoryUser = () => {
                                 <th className="py-2">Transaction ID</th>
                                 <th className="py-2">Type</th>
                                 <th className="py-2">Amount</th>
-                                <th className="py-2">Date</th>
+                                <th className="py-2">Fee</th>
+                                <th className="py-2">Time</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,6 +43,7 @@ const TransactionsHistoryUser = () => {
                                         <TbCurrencyTaka />
                                         {Math.abs(transaction.amount).toFixed(2)}
                                     </td>
+                                    <td className="border px-4 py-2">{transaction?.fee.toFixed(2)}</td>
                                     <td className="border px-4 py-2">{transaction.date}</td>
                                 </tr>
                             ))}
