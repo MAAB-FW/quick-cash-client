@@ -1,26 +1,52 @@
-import useAuth from "@/hooks/useAuth";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
+import useUser from "@/hooks/useUser";
 import React from "react";
 import toast from "react-hot-toast";
 import { TbCurrencyTaka } from "react-icons/tb";
 
 const SendMoney = () => {
-    const { user } = useAuth();
-    const handleSendMoney = (e) => {
+    const { user, refetch } = useUser();
+    const axiosSecure = useAxiosSecure();
+
+    const handleSendMoney = async (e) => {
         e.preventDefault();
         const amount = e.target.amount.value;
         const pin = e.target.pin.value;
         const recipient = e.target.recipient.value;
-        if (!amount || amount > user.balance) {
+        if (amount < 50 || amount > user?.balance) {
             return toast.error("Please type valid amount!");
         }
         if (!pin) {
             return toast.error("Please enter your pin!");
         }
-        if (!recipient) {
+        if (!recipient || recipient === user.phone) {
             return toast.error("Please type valid recipient number!");
         }
-        // sweet alert
-        console.log("object");
+
+        const sendMoneyTransaction = {
+            senderInfo: { name: user.name, phone: user.phone, email: user.email },
+            receiverPhone: recipient,
+            amount: amount,
+            type: "Send Money",
+            time: new Date(),
+            pin,
+        };
+        // console.log(sendMoneyTransaction);
+        //TODO: sweet alert
+        try {
+            const res = await axiosSecure.post("/sendMoney", sendMoneyTransaction);
+            console.log(res.data);
+            if (res.data.message) {
+                return toast.error(res.data.message);
+            }
+            if (res.data.insertedId) {
+                e.target.reset();
+                refetch();
+                return toast.success("Your transaction completed successfully!");
+            }
+        } catch (error) {
+            console.log(error);
+        }
     };
     return (
         <div className="">
@@ -30,7 +56,7 @@ const SendMoney = () => {
                     <h3 className="text-lg font-semibold text-gray-700">Your Balance</h3>
                     <p className="flex items-center">
                         <TbCurrencyTaka />
-                        <span className="font-semibold text-green-600">{user.balance.toFixed(2)}</span>
+                        <span className="font-semibold text-green-600">{user?.balance.toFixed(2)}</span>
                     </p>
                 </div>
                 <form onSubmit={handleSendMoney}>
