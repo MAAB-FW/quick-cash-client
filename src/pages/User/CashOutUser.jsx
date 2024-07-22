@@ -43,7 +43,9 @@ const CashOutUser = () => {
                             placeholder="Enter amount to cash-out"
                         />
                     </div>
-                    <p className="text-gray-500 -mt-4">(charge 1.5% of amount)</p>
+                    <p className="-mt-4 mb-1 text-gray-600">
+                        <small>(charge 1.5% of amount)</small>
+                    </p>
                     <div className="mb-4">
                         <input
                             type="password"

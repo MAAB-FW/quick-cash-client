@@ -68,6 +68,9 @@ const SendMoney = () => {
                             placeholder="Enter amount to send (minimum 50)"
                         />
                     </div>
+                    <div className="-mt-4 mb-1 text-gray-600">
+                        <small>(over 100 tk, fee cost 5 tk)</small>
+                    </div>
                     <div className="mb-4">
                         <input
                             type="password"
