@@ -1,6 +1,6 @@
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import React, { useId, useState } from "react";
+import React, { useState } from "react";
 import { RingLoader } from "react-spinners";
 
 const UserManagement = () => {

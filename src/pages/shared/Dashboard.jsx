@@ -21,9 +21,11 @@ import { RiFileUserFill } from "react-icons/ri";
 import { TbCurrencyTaka, TbSettingsShare } from "react-icons/tb";
 import { useRole } from "@/hooks/useRole";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import useUser from "@/hooks/useUser";
 
 const Dashboard = () => {
-    const { logOut, user } = useAuth();
+    const { logOut } = useAuth();
+    const { user } = useUser();
     const navigate = useNavigate();
     const { role, isPending } = useRole();
     if (isPending) {
