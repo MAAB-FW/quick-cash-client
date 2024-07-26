@@ -24,7 +24,7 @@ const SendMoney = () => {
         }
 
         const sendMoneyTransaction = {
-            senderInfo: { name: user.name, phone: user.phone, email: user.email },
+            userInfo: { name: user.name, phone: user.phone, email: user.email },
             receiverPhone: recipient,
             amount: amount,
             type: "Send Money",

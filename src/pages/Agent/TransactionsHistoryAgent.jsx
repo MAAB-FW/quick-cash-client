@@ -9,10 +9,8 @@ const TransactionsHistoryAgent = () => {
 
     const { data: transactions = [], isPending } = useQuery({
         queryKey: ["historyAgent"],
-        // enabled: !loading && !!user,
         queryFn: async () => {
             const res = await axiosSecure.get(`/historyAgent`);
-            // console.log(res.data.role)
             return res.data;
         },
     });
@@ -22,7 +20,7 @@ const TransactionsHistoryAgent = () => {
     return (
         <div className="">
             <div className="mx-auto bg-white shadow-lg rounded-lg p-6">
-                <h2 className="text-2xl font-bold mb-4 text-gray-800">Transactions History</h2>
+                <h2 className="text-2xl font-bold mb-4 text-gray-800">Transactions History (last 20)</h2>
                 <div className="overflow-x-auto">
                     <table className="min-w-full bg-white text-nowrap">
                         <thead>
