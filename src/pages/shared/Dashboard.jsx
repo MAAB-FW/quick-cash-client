@@ -190,7 +190,7 @@ const Dashboard = () => {
                         <img src={logo} className="size-6" alt="" />
                         QuickCash
                     </div>
-                    {user.balance ? (
+                    {user?.balance ? (
                         <p className="flex items-center">
                             Balance:<span className="font-semibold text-green-600 ml-1">{user.balance.toFixed(2)}</span>
                             <TbCurrencyTaka />
